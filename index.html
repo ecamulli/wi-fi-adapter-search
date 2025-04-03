@@ -48,28 +48,27 @@
       renderTable(data);
     }
 
-    function formatRoamingCell(value) {
-      let className = "";
-      if (value <= 95.0) className = "roaming-low";
-      else if (value <= 98.9) className = "roaming-mid";
-      else className = "roaming-high";
-      return `<td class="\${className}">\${value.toFixed(1)}</td>`;
+    function getRoamingClass(value) {
+      if (value <= 95.0) return "roaming-low";
+      else if (value <= 98.9) return "roaming-mid";
+      else return "roaming-high";
     }
 
     function renderTable(rows) {
       tableBody.innerHTML = "";
       rows.forEach(row => {
         const roamingPercent = parseFloat(row["Good Roaming Calculation (%)"]);
+        const roamingClass = getRoamingClass(roamingPercent);
         const totalSamplesFormatted = (row["Total Sum"] || 0).toLocaleString();
+        const roamingFormatted = roamingPercent.toFixed(1);
 
         const tr = document.createElement("tr");
-        tr.innerHTML = `
-          <td>\${row.Adapter}</td>
-          <td>\${row.Driver}</td>
-          <td>\${totalSamplesFormatted}</td>
-          \${formatRoamingCell(roamingPercent)}
-          <td>\${row["Driver Vintage"] || ""}</td>
-        `;
+        tr.innerHTML =
+          "<td>" + row.Adapter + "</td>" +
+          "<td>" + row.Driver + "</td>" +
+          "<td>" + totalSamplesFormatted + "</td>" +
+          "<td class='" + roamingClass + "'>" + roamingFormatted + "</td>" +
+          "<td>" + (row["Driver Vintage"] || "") + "</td>";
         tableBody.appendChild(tr);
       });
     }
@@ -93,7 +92,7 @@
       });
 
       headers.forEach(h => h.classList.remove('sort-asc', 'sort-desc'));
-      const activeHeader = document.querySelector(`th[data-key="\${key}"]`);
+      const activeHeader = document.querySelector(`th[data-key="${key}"]`);
       activeHeader.classList.add(direction === 'asc' ? 'sort-asc' : 'sort-desc');
 
       renderTable(data);
