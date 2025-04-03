@@ -6,13 +6,13 @@
   <title>Adapter-Driver Search by 7SIGNAL</title>
   <link href="https://fonts.googleapis.com/css2?family=Open+Sans&display=swap" rel="stylesheet">
   <style>
-    body { font-family: 'Open Sans', sans-serif; }
+    body { font-family: 'Open Sans', sans-serif; background-color: #292929; color: white; }
     table { border-collapse: collapse; width: 100%; }
-    th, td { border: 1px solid #ccc; padding: 8px; text-align: left; }
-    th { background-color: #f4f4f4; cursor: pointer; }
+    th, td { border: 1px solid #555; padding: 8px; text-align: left; }
+    th { background-color: #444; cursor: pointer; }
     th.sort-asc::after { content: " ▲"; }
     th.sort-desc::after { content: " ▼"; }
-    input { margin: 10px 0; padding: 5px; width: 300px; }
+    input { margin: 10px 0; padding: 5px; width: 300px; background-color: #444; color: white; border: 1px solid #777; }
   </style>
 </head>
 <body>
@@ -24,11 +24,8 @@
       <tr>
         <th data-key="Adapter">Adapter</th>
         <th data-key="Driver">Driver</th>
-        <th data-key="Good Sum">Good Sum</th>
-        <th data-key="Critical Sum">Critical Sum</th>
-        <th data-key="Warning Sum">Warning Sum</th>
         <th data-key="Client Count">Client Count</th>
-        <th data-key="Total Sum">Total Sum</th>
+        <th data-key="Total Sum">Total Samples</th>
         <th data-key="Good Roaming Calculation (%)">Good Roaming (%)</th>
         <th data-key="Driver Vintage">Driver Vintage</th>
       </tr>
@@ -56,9 +53,6 @@
         tr.innerHTML = `
           <td>${row.Adapter}</td>
           <td>${row.Driver}</td>
-          <td>${row["Good Sum"]}</td>
-          <td>${row["Critical Sum"]}</td>
-          <td>${row["Warning Sum"]}</td>
           <td>${row["Client Count"]}</td>
           <td>${row["Total Sum"]}</td>
           <td>${row["Good Roaming Calculation (%)"]}</td>
