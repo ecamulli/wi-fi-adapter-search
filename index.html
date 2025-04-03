@@ -1,0 +1,74 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Roaming Analysis Table</title>
+  <style>
+    table { border-collapse: collapse; width: 100%; }
+    th, td { border: 1px solid #ccc; padding: 8px; }
+    th { background-color: #f4f4f4; }
+    input { margin: 10px 0; padding: 5px; width: 300px; }
+  </style>
+</head>
+<body>
+  <h1>Roaming Analysis Table</h1>
+  <input type="text" id="search" placeholder="Search by Adapter..." />
+
+  <table id="data-table">
+    <thead>
+      <tr>
+        <th>Adapter</th>
+        <th>Driver</th>
+        <th>Good Sum</th>
+        <th>Critical Sum</th>
+        <th>Warning Sum</th>
+        <th>Client Count</th>
+        <th>Total Sum</th>
+        <th>Good Roaming (%)</th>
+        <th>Driver Vintage</th>
+      </tr>
+    </thead>
+    <tbody></tbody>
+  </table>
+
+  <script>
+    let data = [];
+    const tableBody = document.querySelector("#data-table tbody");
+    const searchInput = document.querySelector("#search");
+
+    async function loadData() {
+      const response = await fetch("data.json");
+      data = await response.json();
+      renderTable(data);
+    }
+
+    function renderTable(rows) {
+      tableBody.innerHTML = "";
+      rows.forEach(row => {
+        const tr = document.createElement("tr");
+        tr.innerHTML = `
+          <td>${row.Adapter}</td>
+          <td>${row.Driver}</td>
+          <td>${row["Good Sum"]}</td>
+          <td>${row["Critical Sum"]}</td>
+          <td>${row["Warning Sum"]}</td>
+          <td>${row["Client Count"]}</td>
+          <td>${row["Total Sum"]}</td>
+          <td>${row["Good Roaming Calculation (%)"]}</td>
+          <td>${row["Driver Vintage"] || ""}</td>
+        `;
+        tableBody.appendChild(tr);
+      });
+    }
+
+    searchInput.addEventListener("input", () => {
+      const term = searchInput.value.toLowerCase();
+      const filtered = data.filter(row => row.Adapter.toLowerCase().includes(term));
+      renderTable(filtered);
+    });
+
+    loadData();
+  </script>
+</body>
+</html>
