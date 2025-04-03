@@ -52,6 +52,7 @@
 
   <script>
     let data = [];
+    let filteredData = [];
     let currentSort = { key: null, direction: 'asc' };
     const tableBody = document.querySelector("#data-table tbody");
     const searchInput = document.querySelector("#search");
@@ -60,7 +61,8 @@
     async function loadData() {
       const response = await fetch("data.json");
       data = await response.json();
-      renderTable(data);
+      filteredData = data;
+      renderTable(filteredData);
     }
 
     function getRoamingClass(value) {
@@ -92,7 +94,7 @@
       const direction = (currentSort.key === key && currentSort.direction === 'asc') ? 'desc' : 'asc';
       currentSort = { key, direction };
 
-      data.sort((a, b) => {
+      filteredData.sort((a, b) => {
         const valA = a[key] || '';
         const valB = b[key] || '';
         const isNumber = typeof valA === 'number' && typeof valB === 'number';
@@ -110,7 +112,7 @@
       const activeHeader = document.querySelector(`th[data-key="${key}"]`);
       activeHeader.classList.add(direction === 'asc' ? 'sort-asc' : 'sort-desc');
 
-      renderTable(data);
+      renderTable(filteredData);
     }
 
     headers.forEach(header => {
@@ -122,7 +124,7 @@
 
     searchInput.addEventListener("input", () => {
       const term = searchInput.value.toLowerCase();
-      const filtered = data.filter(row => row.Adapter.toLowerCase().includes(term));
+      const filteredData = data.filter(row => row.Adapter.toLowerCase().includes(term));
       renderTable(filtered);
     });
 
