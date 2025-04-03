@@ -17,6 +17,9 @@
       overflow: hidden;
       text-overflow: ellipsis;
     }
+    th:nth-child(1), td:nth-child(1) {
+      width: 350px;
+    }
     th { background-color: #444; cursor: pointer; }
     th.sort-asc::after { content: " ▲"; }
     th.sort-desc::after { content: " ▼"; }
@@ -31,10 +34,7 @@
     .roaming-low { color: red; }
     .roaming-mid { color: yellow; }
     .roaming-high { color: limegreen; }
-  th:nth-child(1), td:nth-child(1) {
-  width: 350px;
-}
-</style>
+  </style>
 </head>
 <body>
   <h1>Adapter-Driver Search by 7SIGNAL</h1>
@@ -57,15 +57,20 @@
     let data = [];
     let filteredData = [];
     let currentSort = { key: null, direction: 'asc' };
+
     const tableBody = document.querySelector("#data-table tbody");
     const searchInput = document.querySelector("#search");
     const headers = document.querySelectorAll("th");
 
     async function loadData() {
-      const response = await fetch("data.json");
-      data = await response.json();
-      filteredData = data;
-      renderTable(filteredData);
+      try {
+        const response = await fetch("data.json");
+        data = await response.json();
+        filteredData = [...data];
+        renderTable(filteredData);
+      } catch (err) {
+        console.error("Failed to load data:", err);
+      }
     }
 
     function getRoamingClass(value) {
@@ -84,8 +89,8 @@
 
         const tr = document.createElement("tr");
         tr.innerHTML =
-          "<td>" + row.Adapter + "</td>" +
-          "<td>" + row.Driver + "</td>" +
+          "<td>" + (row.Adapter || "") + "</td>" +
+          "<td>" + (row.Driver || "") + "</td>" +
           "<td>" + totalSamplesFormatted + "</td>" +
           "<td class='" + roamingClass + "'>" + roamingFormatted + "</td>" +
           "<td>" + (row["Driver Vintage"] || "") + "</td>";
@@ -113,7 +118,9 @@
 
       headers.forEach(h => h.classList.remove('sort-asc', 'sort-desc'));
       const activeHeader = document.querySelector(`th[data-key="${key}"]`);
-      activeHeader.classList.add(direction === 'asc' ? 'sort-asc' : 'sort-desc');
+      if (activeHeader) {
+        activeHeader.classList.add(direction === 'asc' ? 'sort-asc' : 'sort-desc');
+      }
 
       renderTable(filteredData);
     }
@@ -127,9 +134,10 @@
 
     searchInput.addEventListener("input", () => {
       const term = searchInput.value.trim().toLowerCase();
-      const term = searchInput.value.toLowerCase();
-      const filteredData = data.filter(row => row.Adapter && row.Adapter.toLowerCase().includes(term));
-      renderTable(filtered);
+      filteredData = data.filter(row =>
+        row.Adapter && row.Adapter.toLowerCase().includes(term)
+      );
+      renderTable(filteredData);
     });
 
     loadData();
