@@ -31,7 +31,10 @@
     .roaming-low { color: red; }
     .roaming-mid { color: yellow; }
     .roaming-high { color: limegreen; }
-  </style>
+  th:nth-child(1), td:nth-child(1) {
+  width: 350px;
+}
+</style>
 </head>
 <body>
   <h1>Adapter-Driver Search by 7SIGNAL</h1>
@@ -123,8 +126,9 @@
     });
 
     searchInput.addEventListener("input", () => {
+      const term = searchInput.value.trim().toLowerCase();
       const term = searchInput.value.toLowerCase();
-      const filteredData = data.filter(row => row.Adapter.toLowerCase().includes(term));
+      const filteredData = data.filter(row => row.Adapter && row.Adapter.toLowerCase().includes(term));
       renderTable(filtered);
     });
 
