@@ -13,6 +13,9 @@
     th.sort-asc::after { content: " ▲"; }
     th.sort-desc::after { content: " ▼"; }
     input { margin: 10px 0; padding: 5px; width: 300px; background-color: #444; color: white; border: 1px solid #777; }
+    .roaming-low { color: red; }
+    .roaming-mid { color: yellow; }
+    .roaming-high { color: limegreen; }
   </style>
 </head>
 <body>
@@ -45,17 +48,27 @@
       renderTable(data);
     }
 
+    function formatRoamingCell(value) {
+      let className = "";
+      if (value <= 95.0) className = "roaming-low";
+      else if (value <= 98.9) className = "roaming-mid";
+      else className = "roaming-high";
+      return `<td class="\${className}">\${value.toFixed(1)}</td>`;
+    }
+
     function renderTable(rows) {
       tableBody.innerHTML = "";
       rows.forEach(row => {
+        const roamingPercent = parseFloat(row["Good Roaming Calculation (%)"]);
+        const totalSamplesFormatted = (row["Total Sum"] || 0).toLocaleString();
+
         const tr = document.createElement("tr");
         tr.innerHTML = `
-          <td>${row.Adapter}</td>
-          <td>${row.Driver}</td>
-          <td>${row["Client Count"]}</td>
-          <td>${row["Total Sum"]}</td>
-          <td>${row["Good Roaming Calculation (%)"]}</td>
-          <td>${row["Driver Vintage"] || ""}</td>
+          <td>\${row.Adapter}</td>
+          <td>\${row.Driver}</td>
+          <td>\${totalSamplesFormatted}</td>
+          \${formatRoamingCell(roamingPercent)}
+          <td>\${row["Driver Vintage"] || ""}</td>
         `;
         tableBody.appendChild(tr);
       });
@@ -80,7 +93,7 @@
       });
 
       headers.forEach(h => h.classList.remove('sort-asc', 'sort-desc'));
-      const activeHeader = document.querySelector(`th[data-key="${key}"]`);
+      const activeHeader = document.querySelector(`th[data-key="\${key}"]`);
       activeHeader.classList.add(direction === 'asc' ? 'sort-asc' : 'sort-desc');
 
       renderTable(data);
