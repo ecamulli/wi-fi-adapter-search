@@ -3,30 +3,34 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>Roaming Analysis Table</title>
+  <title>Adapter-Driver Search by 7SIGNAL</title>
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans&display=swap" rel="stylesheet">
   <style>
+    body { font-family: 'Open Sans', sans-serif; }
     table { border-collapse: collapse; width: 100%; }
-    th, td { border: 1px solid #ccc; padding: 8px; }
-    th { background-color: #f4f4f4; }
+    th, td { border: 1px solid #ccc; padding: 8px; text-align: left; }
+    th { background-color: #f4f4f4; cursor: pointer; }
+    th.sort-asc::after { content: " ▲"; }
+    th.sort-desc::after { content: " ▼"; }
     input { margin: 10px 0; padding: 5px; width: 300px; }
   </style>
 </head>
 <body>
-  <h1>Roaming Analysis Table</h1>
+  <h1>Adapter-Driver Search by 7SIGNAL</h1>
   <input type="text" id="search" placeholder="Search by Adapter..." />
 
   <table id="data-table">
     <thead>
       <tr>
-        <th>Adapter</th>
-        <th>Driver</th>
-        <th>Good Sum</th>
-        <th>Critical Sum</th>
-        <th>Warning Sum</th>
-        <th>Client Count</th>
-        <th>Total Sum</th>
-        <th>Good Roaming (%)</th>
-        <th>Driver Vintage</th>
+        <th data-key="Adapter">Adapter</th>
+        <th data-key="Driver">Driver</th>
+        <th data-key="Good Sum">Good Sum</th>
+        <th data-key="Critical Sum">Critical Sum</th>
+        <th data-key="Warning Sum">Warning Sum</th>
+        <th data-key="Client Count">Client Count</th>
+        <th data-key="Total Sum">Total Sum</th>
+        <th data-key="Good Roaming Calculation (%)">Good Roaming (%)</th>
+        <th data-key="Driver Vintage">Driver Vintage</th>
       </tr>
     </thead>
     <tbody></tbody>
@@ -34,8 +38,10 @@
 
   <script>
     let data = [];
+    let currentSort = { key: null, direction: 'asc' };
     const tableBody = document.querySelector("#data-table tbody");
     const searchInput = document.querySelector("#search");
+    const headers = document.querySelectorAll("th");
 
     async function loadData() {
       const response = await fetch("data.json");
@@ -61,6 +67,38 @@
         tableBody.appendChild(tr);
       });
     }
+
+    function sortTable(key) {
+      const direction = (currentSort.key === key && currentSort.direction === 'asc') ? 'desc' : 'asc';
+      currentSort = { key, direction };
+
+      data.sort((a, b) => {
+        const valA = a[key] || '';
+        const valB = b[key] || '';
+        const isNumber = typeof valA === 'number' && typeof valB === 'number';
+
+        if (isNumber) {
+          return direction === 'asc' ? valA - valB : valB - valA;
+        } else {
+          return direction === 'asc'
+            ? valA.toString().localeCompare(valB.toString())
+            : valB.toString().localeCompare(valA.toString());
+        }
+      });
+
+      headers.forEach(h => h.classList.remove('sort-asc', 'sort-desc'));
+      const activeHeader = document.querySelector(`th[data-key="${key}"]`);
+      activeHeader.classList.add(direction === 'asc' ? 'sort-asc' : 'sort-desc');
+
+      renderTable(data);
+    }
+
+    headers.forEach(header => {
+      header.addEventListener("click", () => {
+        const key = header.getAttribute("data-key");
+        sortTable(key);
+      });
+    });
 
     searchInput.addEventListener("input", () => {
       const term = searchInput.value.toLowerCase();
