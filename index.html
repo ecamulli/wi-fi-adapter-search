@@ -3,11 +3,19 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>Adapter-Driver Search by 7SIGNAL</title>
+  <title>Windows® Adapter-Driver Performance Search</title>
   <link href="https://fonts.googleapis.com/css2?family=Open+Sans&display=swap" rel="stylesheet">
   <style>
-    body { font-family: 'Open Sans', sans-serif; background-color: #292929; color: white; }
-    table { border-collapse: collapse; table-layout: auto; width: auto; }
+    body {
+      font-family: 'Open Sans', sans-serif;
+      background-color: #292929;
+      color: white;
+    }
+    table {
+      border-collapse: collapse;
+      table-layout: auto;
+      width: auto;
+    }
     th, td {
       border: 1px solid #555;
       padding: 8px;
@@ -16,13 +24,14 @@
       overflow: hidden;
       text-overflow: ellipsis;
     }
-    
     th:nth-child(1), td:nth-child(1) {
-      width: 550px;
-      max-width: none;  /* override the default max-width */
+      width: 350px;
+      max-width: none;
     }
-
-    th { background-color: #444; cursor: pointer; }
+    th {
+      background-color: #444;
+      cursor: pointer;
+    }
     th.sort-asc::after { content: " ▲"; }
     th.sort-desc::after { content: " ▼"; }
     input {
@@ -36,10 +45,36 @@
     .roaming-low { color: red; }
     .roaming-mid { color: yellow; }
     .roaming-high { color: limegreen; }
+    .summary-box {
+      font-size: 24px;
+      font-weight: bold;
+      margin-bottom: 8px;
+      color: lightgreen;
+    }
+    .brand-link {
+      color: #aaa;
+      text-decoration: underline;
+      transition: color 0.2s ease;
+    }
+    .brand-link:hover {
+      color: #3399ff;
+    }
   </style>
 </head>
 <body>
-  <h1>Adapter-Driver Search by 7SIGNAL</h1>
+  <h1 style="font-size: 28px; font-weight: bold; margin-bottom: 0;">
+    Windows<span style="vertical-align: super; font-size: smaller;">&reg;</span> Adapter-Driver Performance Search
+  </h1>
+  <h2 style="font-size: 20px; font-weight: normal; color: #aaa; margin-top: 4px; margin-bottom: 20px;">
+    by <a href="https://7signal.com" target="_blank" class="brand-link">
+      7SIGNAL<span style="vertical-align: super; font-size: smaller;">&reg;</span>
+    </a>
+  </h2>
+
+  <div>
+    <div id="total-samples" class="summary-box"></div>
+  </div>
+
   <input type="text" id="search" placeholder="Search by Adapter..." />
 
   <table id="data-table">
@@ -68,7 +103,16 @@
       try {
         const response = await fetch("data.json");
         data = await response.json();
-        filteredData = [...data];
+
+        const totalSamples = data.reduce((sum, row) => sum + (row["Total Sum"] || 0), 0);
+        document.getElementById("total-samples").textContent = "Total Samples: " + totalSamples.toLocaleString();
+
+        filteredData = [...data].sort((a, b) => {
+          const valA = a.Adapter || '';
+          const valB = b.Adapter || '';
+          return valA.localeCompare(valB);
+        });
+
         renderTable(filteredData);
       } catch (err) {
         console.error("Failed to load data:", err);
@@ -136,9 +180,16 @@
 
     searchInput.addEventListener("input", () => {
       const term = searchInput.value.trim().toLowerCase();
-      filteredData = data.filter(row =>
-        row.Adapter && row.Adapter.toLowerCase().includes(term)
-      );
+      filteredData = data
+        .filter(row =>
+          row.Adapter && row.Adapter.toLowerCase().includes(term)
+        )
+        .sort((a, b) => {
+          const valA = a.Adapter || '';
+          const valB = b.Adapter || '';
+          return valA.localeCompare(valB);
+        });
+
       renderTable(filteredData);
     });
 
