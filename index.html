@@ -77,6 +77,7 @@
   </h3>
   <div>
     <div id="total-samples" class="summary-box"></div>
+    <div id="criticalTimeDisplay" class="result-line"></div>
   </div>
 
   <input type="text" id="search" placeholder="Search by Adapter..." />
@@ -95,6 +96,8 @@
   </table>
 
   <script>
+    
+    
     let data = [];
     let filteredData = [];
     let currentSort = { key: null, direction: 'asc' };
@@ -199,5 +202,48 @@
 
     loadData();
   </script>
+  <script>
+  async function loadCriticalTime() {
+    try {
+      const response = await fetch('data.json');
+      const jsonData = await response.json();
+
+      // Sum up all the Critical Sum values
+      const totalMinutes = jsonData.reduce((sum, item) => {
+        return sum + (item["Critical Sum"] || 0);
+      }, 0);
+
+      // Convert minutes into Y/M/D/H/M format
+      let remainingMinutes = totalMinutes;
+      const minutesPerYear = 525600;
+      const minutesPerMonth = 43800;
+      const minutesPerDay = 1440;
+      const minutesPerHour = 60;
+
+      const years = Math.floor(remainingMinutes / minutesPerYear);
+      remainingMinutes %= minutesPerYear;
+
+      const months = Math.floor(remainingMinutes / minutesPerMonth);
+      remainingMinutes %= minutesPerMonth;
+
+      const days = Math.floor(remainingMinutes / minutesPerDay);
+      remainingMinutes %= minutesPerDay;
+
+      const hours = Math.floor(remainingMinutes / minutesPerHour);
+      remainingMinutes = Math.floor(remainingMinutes % minutesPerHour);
+
+      // Build and insert the display string
+      const timeString = `${years}y ${months}m ${days}d ${hours}h ${remainingMinutes}m`;
+      document.getElementById("criticalTimeDisplay").innerHTML =
+        `<strong>Total Critical Roaming Time Identified:</strong> ${timeString}`;
+    } catch (error) {
+      console.error("Error loading or parsing data.json:", error);
+    }
+  }
+
+  // Run this when the page is loaded
+  window.addEventListener('DOMContentLoaded', loadCriticalTime);
+</script>
+
 </body>
 </html>
