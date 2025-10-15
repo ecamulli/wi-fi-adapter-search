@@ -23,7 +23,7 @@
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
-      color: #808080;
+      color: #404040;
       font-family: 'Open Sans', sans-serif;
     }
     th:nth-child(1), td:nth-child(1) {
@@ -33,6 +33,7 @@
     th {
       background-color: #444;
       cursor: pointer;
+      color: #bbbbbb;
     }
     th.sort-asc::after { content: " ▲"; }
     th.sort-desc::after { content: " ▼"; }
@@ -43,6 +44,10 @@
       background-color: #444;
       color: white;
       border: 1px solid #777;
+    }
+    input::placeholder {
+        color: #cccccc;    
+        opacity: 1;                  
     }
     .roaming-low { color: red; }
     .roaming-mid { color: #ffc107; }
