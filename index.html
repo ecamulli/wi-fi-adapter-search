@@ -62,7 +62,7 @@
       color: #1784c1;
     }
     .brand-link {
-      color: #aaa;
+      color: #777;
       text-decoration: underline;
       transition: color 0.2s ease;
     }
@@ -259,7 +259,7 @@
       // Build and insert the display string
       const timeString = `${years}y ${months}m ${days}d ${hours}h ${remainingMinutes}m`;
       document.getElementById("criticalTimeDisplay").innerHTML =
-        `<strong>Total Critical Roaming Time Identified:</strong> ${timeString}`;
+        `Total Critical Roaming Time Identified: ${timeString}`;
     } catch (error) {
       console.error("Error loading or parsing data.json:", error);
     }
