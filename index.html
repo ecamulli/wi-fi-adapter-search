@@ -67,7 +67,7 @@
       color: #0383bf;
     }
     .brand-link {
-      color: #393939; /* Medium-dark gray for brand links */
+      color: #BEBDBD; /* Medium-dark gray for brand links */
       text-decoration: underline;
       transition: color 0.2s ease;
     }
@@ -77,14 +77,14 @@
     h2 {
       font-size: 20px;
       font-weight: normal;
-      color: #393939; /* Medium-dark gray for "by 7SIGNAL®" */
+      color: #BEBDBD; /* Medium-dark gray for "by 7SIGNAL®" */
       margin-top: 4px;
       margin-bottom: 20px;
     }
     h3 {
       font-size: 16px;
       font-weight: normal;
-      color: #393939; /* Medium-dark gray for "Calculating Stickiness..." */
+      color: #BEBDBD; /* Medium-dark gray for "Calculating Stickiness..." */
       margin-top: -12px;
       margin-bottom: 16px;
     }
@@ -94,12 +94,12 @@
   <h1 style="font-size: 28px; font-weight: medium; color: #033144; margin-bottom: 0;">
     Windows<span style="vertical-align: super; font-size: smaller;">&reg;</span> Adapter-Driver Performance Search
   </h1>
-  <h2 style="font-size: 20px; font-weight: normal; color: #777; margin-top: 4px; margin-bottom: 20px;">
+  <h2 style="font-size: 20px; font-weight: normal; color: #BEBDBD; margin-top: 4px; margin-bottom: 20px;">
     by <a href="https://7signal.com" target="_blank" class="brand-link">
       7SIGNAL<span style="vertical-align: super; font-size: smaller;">&reg;</span>
     </a>
   </h2>
-  <h3 style="font-size: 16px; font-weight: normal; color: #777; margin-top: -12px; margin-bottom: 16px;">
+  <h3 style="font-size: 16px; font-weight: normal; color: #BEBDBD; margin-top: -12px; margin-bottom: 16px;">
     <a href="https://www.7signal.com/info/sticky-factor" target="_blank" class="brand-link">
       Calculating Stickiness &amp; Roaming Quality
     </a>
@@ -262,7 +262,7 @@
         // Build and insert the display string
         const timeString = `${years}y ${months}m ${days}d ${hours}h ${remainingMinutes}m`;
         document.getElementById("criticalTimeDisplay").innerHTML =
-          `<strong>Total Critical Roaming Time Identified:</strong> ${timeString}`;
+          `Total Critical Roaming Time Identified: ${timeString}`;
       } catch (error) {
         console.error("Error loading or parsing data.json:", error);
       }
