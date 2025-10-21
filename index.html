@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
+  <title>Windows Adapter Search</title>
   <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
   <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
   <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
@@ -12,6 +13,65 @@
       font-family: 'Oswald', sans-serif;
       background-color: #faf9fa;
       color: white;
+      margin: 0;
+    }
+    /* --- 7SIGNAL-like Top Navigation Bar --- */
+    .topbar {
+      background-color: #002f56;   /* 7SIGNAL navy blue */
+      height: 64px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 24px;
+      color: #fff;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: 600;
+    }
+
+    .logo img {
+      height: 32px;
+    }
+
+    .menu {
+      display: flex;
+      align-items: center;
+      gap: 24px;
+    }
+
+    .menu a {
+      text-decoration: none;
+      color: #fff;
+      font-weight: 500;
+      font-size: 15px;
+    }
+
+    .menu a:hover {
+      border-bottom: 2px solid #00b3e6;
+    }
+
+    .user-menu {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      cursor: pointer;
+      font-size: 14px;
+    }
+
+    .user-avatar {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background-color: #00b3e6;
+    }
+
+    /* --- Existing table styles --- */
+    
     }
     table {
       border-collapse: collapse;
@@ -94,6 +154,23 @@
   </style>
 </head>
 <body>
+  <!-- New Top Navigation Bar -->
+  <div class="topbar">
+    <div class="logo">
+      <img src="7signal-logo.svg" alt="7SIGNAL Logo">
+      <span>7SIGNAL</span>
+    </div>
+
+    <nav class="menu">
+      <a href="#">Dashboards</a>
+      <a href="#">Experience</a>
+      <a href="#">Configurator</a>
+      <a href="#">Analyzer</a>
+      <a href="#">Mobile Eye</a>
+      <a href="#">Redirector</a>
+      <a href="#">Users</a>
+    </nav>
+  </div>
   <h1 style="font-size: 28px; font-weight: medium; color: #044260; margin-bottom: 0;">
     Windows<span style="vertical-align: super; font-size: smaller;">&reg;</span> Adapter-Driver Performance Search
   </h1>
