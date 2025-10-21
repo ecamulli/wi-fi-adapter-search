@@ -13,17 +13,19 @@
       font-family: 'Oswald', sans-serif;
       background-color: #faf9fa;
       color: white;
-      padding: 10px;
-      margin: 0;
+      margin: 0;           /* No margin to ensure topbar spans full width */
+      padding: 0;          /* No padding for body */
     }
-    /* --- 7SIGNAL-like Top Navigation Bar --- */
+
+    /* --- 7SIGNAL Top Navigation Bar --- */
     .topbar {
       background-color: #044260;   /* 7SIGNAL blue */
       height: 48px;
       display: flex;
-      align-items: left;
+      align-items: center;
       padding: 0 8px;
       color: #fff;
+      width: 100%;                 /* Full width across page */
     }
 
     .logo {
@@ -37,46 +39,18 @@
       height: 32px;
     }
 
-    .menu {
-      display: flex;
-      align-items: center;
-      gap: 24px;
+    /* --- Content Wrapper (everything below the topbar) --- */
+    .content {
+      padding: 20px 40px; /* adds spacing inside the main content area */
     }
 
-    .menu a {
-      text-decoration: none;
-      color: #fff;
-      font-weight: 500;
-      font-size: 15px;
-    }
-
-    .menu a:hover {
-      border-bottom: 2px solid #00b3e6;
-    }
-
-    .user-menu {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      cursor: pointer;
-      font-size: 14px;
-    }
-
-    .user-avatar {
-      width: 28px;
-      height: 28px;
-      border-radius: 50%;
-      background-color: #00b3e6;
-    }
-
-    /* --- Existing table styles --- */
-    
-    }
+    /* --- Table and Input Styles --- */
     table {
       border-collapse: collapse;
       table-layout: auto;
       width: auto;
     }
+
     th, td {
       border: 1px solid #aaaaaa;
       padding: 8px;
@@ -84,115 +58,137 @@
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
-      color: #212120; /* Dark gray for cell text */
+      color: #212120;
       font-family: 'Open Sans', sans-serif;
     }
+
     th:nth-child(1), td:nth-child(1) {
       width: 350px;
       max-width: none;
     }
+
     th {
-      background-color: #044260; /* dark blue for table headings */
+      background-color: #044260;
       cursor: pointer;
-      color: #ebedef; /* light gray for header text */
+      color: #ebedef;
     }
+
     td {
-      background-color: #ffffff; /* white for data rows */
+      background-color: #ffffff;
     }
+
     th.sort-asc::after { content: " ▲"; }
     th.sort-desc::after { content: " ▼"; }
+
     input {
       margin: 10px 0;
-      padding: 6px 10px;
+      padding: 6px 14px; /* adds extra space on left and right */
       width: 250px;
-      background-color: #ffffff; /* Input box */
-      color: #212120; /* Text color when typing in box */
+      background-color: #ffffff; /* Input fill color */
+      color: #212120; /* Text color inside box */
       border: 1px solid #aaaaaa;
-      border-radius: 20px; /* Rounded corners of search box */
+      border-radius: 20px; /* Rounded corners */
     }
+
+    input:focus {
+      outline: none;
+      border-color: #aaaaaa;
+      box-shadow: none; /* Prevents dark focus border */
+    }
+
     input::placeholder {
-      color: #aaaaaa; /* Light gray for placeholder */
-      opacity: 1; /* Firefox compatibility */
-    }
-    .roaming-low { color: #b81d13; }
-    .roaming-mid { color: #efb700; }
-    .roaming-high { color: #008450; }
-    .roaming-low, .roaming-mid, .roaming-high {
-      font-weight: bold;
-    }
-    #criticalTimeDisplay {
       color: #aaaaaa;
+      opacity: 1;
     }
+
+    .roaming-low { color: #b81d13; font-weight: bold; }
+    .roaming-mid { color: #efb700; font-weight: bold; }
+    .roaming-high { color: #008450; font-weight: bold; }
+
+    #criticalTimeDisplay { color: #aaaaaa; }
+
     .summary-box {
       font-size: 24px;
       font-weight: 400;
       margin-bottom: 8px;
       color: #0383bf;
     }
+
     .brand-link {
-      color: #aaaaaa; /* Medium-dark gray for brand links */
+      color: #aaaaaa;
       text-decoration: underline;
       transition: color 0.2s ease;
     }
+
     .brand-link:hover {
-      color: #0383bf; /* Blue hover color */
+      color: #0383bf;
     }
+
     h2 {
       font-size: 20px;
       font-weight: normal;
-      color: #aaaaaa; /* Medium-dark gray for "by 7SIGNAL®" */
+      color: #aaaaaa;
       margin-top: 4px;
       margin-bottom: 20px;
     }
+
     h3 {
       font-size: 16px;
       font-weight: normal;
-      color: #aaaaaa; /* Medium-dark gray for "Calculating Stickiness..." */
+      color: #aaaaaa;
       margin-top: -12px;
       margin-bottom: 16px;
     }
   </style>
 </head>
 <body>
-  <!-- New Top Navigation Bar -->
+  <!-- Full-width Top Navigation Bar -->
   <div class="topbar">
     <div class="logo">
       <img src="7SIGNAL-logo.svg" alt="7SIGNAL Logo">
     </div>
   </div>
-  <h1 style="font-size: 28px; font-weight: medium; color: #044260; margin-bottom: 0;">
-    Windows<span style="vertical-align: super; font-size: smaller;">&reg;</span> Adapter-Driver Performance Search
-  </h1>
-  <h2 style="font-size: 20px; font-weight: normal; color: #aaaaaa; margin-top: 4px; margin-bottom: 20px;">
-    by <a href="https://7signal.com" target="_blank" class="brand-link">
-      7SIGNAL<span style="vertical-align: super; font-size: smaller;">&reg;</span>
-    </a>
-  </h2>
-  <h3 style="font-size: 16px; font-weight: normal; color: #aaaaaa; margin-top: -12px; margin-bottom: 16px;">
-    <a href="https://www.7signal.com/info/sticky-factor" target="_blank" class="brand-link">
-      Calculating Stickiness &amp; Roaming Quality
-    </a>
-  </h3>
-  <div>
-    <div id="total-samples" class="summary-box"></div>
-    <div id="criticalTimeDisplay" class="result-line"></div>
+
+  <!-- Padded Content Area -->
+  <div class="content">
+    <h1 style="font-size: 28px; font-weight: medium; color: #044260; margin-bottom: 0;">
+      Windows<span style="vertical-align: super; font-size: smaller;">&reg;</span> Adapter-Driver Performance Search
+    </h1>
+
+    <h2>
+      by <a href="https://7signal.com" target="_blank" class="brand-link">
+        7SIGNAL<span style="vertical-align: super; font-size: smaller;">&reg;</span>
+      </a>
+    </h2>
+
+    <h3>
+      <a href="https://www.7signal.com/info/sticky-factor" target="_blank" class="brand-link">
+        Calculating Stickiness &amp; Roaming Quality
+      </a>
+    </h3>
+
+    <div>
+      <div id="total-samples" class="summary-box"></div>
+      <div id="criticalTimeDisplay" class="result-line"></div>
+    </div>
+
+    <input type="text" id="search" placeholder="Search by Adapter..." />
+
+    <table id="data-table">
+      <thead>
+        <tr>
+          <th data-key="Adapter">Adapter</th>
+          <th data-key="Driver">Driver</th>
+          <th data-key="Total Sum">Total Samples</th>
+          <th data-key="Good Roaming Calculation (%)">Good Roaming (%)</th>
+          <th data-key="Driver Vintage">Driver Vintage</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
   </div>
 
-  <input type="text" id="search" placeholder="Search by Adapter..." />
-
-  <table id="data-table">
-    <thead>
-      <tr>
-        <th data-key="Adapter">Adapter</th>
-        <th data-key="Driver">Driver</th>
-        <th data-key="Total Sum">Total Samples</th>
-        <th data-key="Good Roaming Calculation (%)">Good Roaming (%)</th>
-        <th data-key="Driver Vintage">Driver Vintage</th>
-      </tr>
-    </thead>
-    <tbody></tbody>
-  </table>
-
+  <!-- JavaScript -->
   <script>
     let data = [];
     let filteredData = [];
@@ -208,7 +204,8 @@
         data = await response.json();
 
         const totalSamples = data.reduce((sum, row) => sum + (row["Total Sum"] || 0), 0);
-        document.getElementById("total-samples").textContent = "Total Samples: " + totalSamples.toLocaleString();
+        document.getElementById("total-samples").textContent =
+          "Total Samples: " + totalSamples.toLocaleString();
 
         filteredData = [...data].sort((a, b) => {
           const valA = a.Adapter || '';
@@ -248,7 +245,8 @@
     }
 
     function sortTable(key) {
-      const direction = (currentSort.key === key && currentSort.direction === 'asc') ? 'desc' : 'asc';
+      const direction =
+        (currentSort.key === key && currentSort.direction === 'asc') ? 'desc' : 'asc';
       currentSort = { key, direction };
 
       filteredData.sort((a, b) => {
@@ -298,18 +296,17 @@
 
     loadData();
   </script>
+
   <script>
     async function loadCriticalTime() {
       try {
         const response = await fetch('data.json');
         const jsonData = await response.json();
 
-        // Sum up all the Critical Sum values
         const totalMinutes = jsonData.reduce((sum, item) => {
           return sum + (item["Critical Sum"] || 0);
         }, 0);
 
-        // Convert minutes into Y/M/D/H/M format
         let remainingMinutes = totalMinutes;
         const minutesPerYear = 525600;
         const minutesPerMonth = 43800;
@@ -328,7 +325,6 @@
         const hours = Math.floor(remainingMinutes / minutesPerHour);
         remainingMinutes = Math.floor(remainingMinutes % minutesPerHour);
 
-        // Build and insert the display string
         const timeString = `${years}y ${months}m ${days}d ${hours}h ${remainingMinutes}m`;
         document.getElementById("criticalTimeDisplay").innerHTML =
           `Total Critical Roaming Time Identified: ${timeString}`;
@@ -337,7 +333,6 @@
       }
     }
 
-    // Run this when the page is loaded
     window.addEventListener('DOMContentLoaded', loadCriticalTime);
   </script>
 </body>
