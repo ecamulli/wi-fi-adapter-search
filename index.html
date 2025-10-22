@@ -13,65 +13,64 @@
       font-family: 'Oswald', sans-serif;
       background-color: #faf9fa;
       color: white;
-      margin: 0;           /* No margin to ensure topbar spans full width */
-      padding: 0;          /* No padding for body */
+      margin: 0;
+      padding: 0;
     }
 
     /* --- 7SIGNAL Top Navigation Bar --- */
     .topbar {
-      background-color: #044260;   /* 7SIGNAL blue */
+      background-color: #044260;
       height: 48px;
       display: flex;
       align-items: center;
-      padding: 0 8px;
-      color: #fff;
-      width: 100%;                 /* Full width across page */
+      padding: 0 16px;
+      width: 100%;
     }
 
     .logo {
       display: flex;
       align-items: center;
       gap: 10px;
-      font-weight: 600;
     }
 
     .logo img {
       height: 32px;
     }
+
     /* --- Navigation menu --- */
-.nav {
-  display: flex;
-  gap: 2px;
-  margin-left: 20px;
-}
-
-.nav a {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  text-decoration: none;
-  padding: 0 16px;
-  color: #ffffff;
-  background-color: #074c6e; /* default dark tile */
-  height: 48px;
-  font-family: 'Open Sans', sans-serif;
-  font-size: 15px;
-}
-
-.nav a.active {
-  background-color: #0383bf; /* bright blue tile */
-  text-decoration: underline;
-}
-
-.nav a:hover {
-  background-color: #056595;
-}
-    /* --- Content Wrapper (everything below the topbar) --- */
-    .content {
-      padding: 0px 20px; /* adds spacing inside the main content area */
+    .nav {
+      display: flex;
+      gap: 2px;
+      margin-left: 20px;
     }
 
-    /* --- Table and Input Styles --- */
+    .nav a {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-decoration: none;
+      padding: 0 16px;
+      color: #ffffff;
+      background-color: #074c6e;
+      height: 48px;
+      font-family: 'Open Sans', sans-serif;
+      font-size: 15px;
+    }
+
+    .nav a.active {
+      background-color: #0383bf;
+      text-decoration: underline;
+    }
+
+    .nav a:hover {
+      background-color: #056595;
+    }
+
+    /* --- Content Wrapper --- */
+    .content {
+      padding: 0px 20px;
+    }
+
     table {
       border-collapse: collapse;
       table-layout: auto;
@@ -109,18 +108,18 @@
 
     input {
       margin: 10px 0;
-      padding: 6px 14px; /* adds extra space on left and right */
+      padding: 6px 14px;
       width: 250px;
-      background-color: #ffffff; /* Input fill color */
-      color: #212120; /* Text color inside box */
+      background-color: #ffffff;
+      color: #212120;
       border: 1px solid #aaaaaa;
-      border-radius: 20px; /* Rounded corners */
+      border-radius: 20px;
     }
 
     input:focus {
       outline: none;
       border-color: #aaaaaa;
-      box-shadow: none; /* Prevents dark focus border */
+      box-shadow: none;
     }
 
     input::placeholder {
@@ -174,6 +173,10 @@
     <div class="logo">
       <img src="7SIGNAL-logo.svg" alt="7SIGNAL Logo">
     </div>
+    <div class="nav">
+      <a href="#" class="active">Dashboards</a>
+      <a href="#">Experience</a>
+    </div>
   </div>
 
   <!-- Padded Content Area -->
@@ -215,7 +218,6 @@
     </table>
   </div>
 
-  <!-- JavaScript -->
   <script>
     let data = [];
     let filteredData = [];
