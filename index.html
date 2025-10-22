@@ -45,6 +45,7 @@
     }
 
     .nav a {
+      position: relative;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -55,15 +56,32 @@
       height: 48px;
       font-family: 'Open Sans', sans-serif;
       font-size: 15px;
+      transition: background-color 0.3s ease, color 0.3s ease;
+    }
+
+    .nav a::after {
+      content: '';
+      position: absolute;
+      bottom: 6px;
+      left: 50%;
+      width: 0;
+      height: 2px;
+      background-color: #ffffff;
+      transition: width 0.3s ease, left 0.3s ease;
+    }
+
+    .nav a:hover::after {
+      width: 80%;
+      left: 10%;
     }
 
     .nav a.active {
       background-color: #0383bf;
-      text-decoration: underline;
     }
 
     .nav a:hover {
       background-color: #056595;
+      color: #ffffff;
     }
 
     /* --- Content Wrapper --- */
@@ -174,8 +192,8 @@
       <img src="7SIGNAL-logo.svg" alt="7SIGNAL Logo">
     </div>
     <div class="nav">
-      <a href="#" class="active">Dashboards</a>
-      <a href="#">Experience</a>
+      <a href="https://start.7signal.com/performance-overview-dashboard" class="active" target="_blank">Dashboards</a>
+      <a href="https://start.7signal.com/experience" target="_blank">Experience</a>
     </div>
   </div>
 
