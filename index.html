@@ -38,7 +38,34 @@
     .logo img {
       height: 32px;
     }
+    /* --- Navigation menu --- */
+.nav {
+  display: flex;
+  gap: 2px;
+  margin-left: 20px;
+}
 
+.nav a {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  padding: 0 16px;
+  color: #ffffff;
+  background-color: #074c6e; /* default dark tile */
+  height: 48px;
+  font-family: 'Open Sans', sans-serif;
+  font-size: 15px;
+}
+
+.nav a.active {
+  background-color: #0383bf; /* bright blue tile */
+  text-decoration: underline;
+}
+
+.nav a:hover {
+  background-color: #056595;
+}
     /* --- Content Wrapper (everything below the topbar) --- */
     .content {
       padding: 0px 20px; /* adds spacing inside the main content area */
